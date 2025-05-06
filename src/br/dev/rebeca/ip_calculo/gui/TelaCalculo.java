@@ -1,8 +1,9 @@
 package br.dev.rebeca.ip_calculo.gui;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -85,17 +86,35 @@ public class TelaCalculo {
 		buttonCalcular.addActionListener(new ActionListener() {
 
 			@Override
-
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
-                    int primeiroOcteto = Integer.parseInt(txtPrimeiroOcteto.getText());
-                    int segundoOcteto = Integer.parseInt(txtSegundoOcteto.getText());
-                    int terceiroOcteto = Integer.parseInt(txtTerceiroOcteto.getText());
-                    int quartoOcteto = Integer.parseInt(txtQuartoOcteto.getText());
-                    int cidr = Integer.parseInt(txtCidr.getText());
+					int primeiroOcteto = Integer.parseInt(txtPrimeiroOcteto.getText());
+					int segundoOcteto = Integer.parseInt(txtSegundoOcteto.getText());
+					int terceiroOcteto = Integer.parseInt(txtTerceiroOcteto.getText());
+					int quartoOcteto = Integer.parseInt(txtQuartoOcteto.getText());
+					int cidr = Integer.parseInt(txtCidr.getText());
+
+					CalculoIp calculadora = new CalculoIp();
+					calculadora.setOctetos(primeiroOcteto, segundoOcteto, terceiroOcteto, quartoOcteto);
+					calculadora.setCidr(cidr);
+
+					lblResulIp.setText(calculadora.ipFormato());
+					lblResulClasseIp.setText(calculadora.classeIp());
+					lblResulMascDec.setText(calculadora.calcMascaraDecimal());
+					lblResulMascBin.setText(calculadora.calcMascaraBinaria());
+					lblResulIpsDisp.setText(String.valueOf(calculadora.calcNumIpsDisponiveis()));
+
+					lblMensagemErro.setText("");
+
+				} catch (NumberFormatException ex) {
+
+					lblMensagemErro
+							.setText("<html>A calculadora só funcionará corretamente <br> com números válidos.<html>");
 
 				}
+
+			}
 		});
 
 		buttonLimpar = new JButton();
@@ -105,9 +124,22 @@ public class TelaCalculo {
 		buttonLimpar.addActionListener(new ActionListener() {
 
 			@Override
-
 			public void actionPerformed(ActionEvent e) {
 
+				txtPrimeiroOcteto.setText("");
+				txtSegundoOcteto.setText("");
+				txtTerceiroOcteto.setText("");
+				txtQuartoOcteto.setText("");
+
+				txtCidr.setText("");
+
+				lblResulIp.setText("");
+				lblResulClasseIp.setText("");
+				lblResulMascDec.setText("");
+				lblResulMascBin.setText("");
+				lblResulIpsDisp.setText("");
+
+				lblMensagemErro.setText("");
 			}
 		});
 
@@ -125,16 +157,45 @@ public class TelaCalculo {
 		lblMascaraDecimal.setText("Másc. Decimal:");
 		lblMascaraDecimal.setBounds(25, 210, 350, 35);
 		lblMascaraDecimal.setFont(new Font("Arial", Font.BOLD, 15));
-		
+
 		lblMascaraBinaria = new JLabel();
 		lblMascaraBinaria.setText("Másc. Binária:");
 		lblMascaraBinaria.setBounds(25, 235, 350, 35);
 		lblMascaraBinaria.setFont(new Font("Arial", Font.BOLD, 15));
-		
+
 		lblIpsDisponiveis = new JLabel();
-		lblIpsDisponiveis.setText("IPS Disponíveis::");
+		lblIpsDisponiveis.setText("IPS Disponíveis:");
 		lblIpsDisponiveis.setBounds(25, 260, 350, 35);
 		lblIpsDisponiveis.setFont(new Font("Arial", Font.BOLD, 15));
+
+		lblMensagemErro = new JLabel();
+		lblMensagemErro.setBounds(97, 310, 400, 40);
+		lblMensagemErro.setForeground(Color.red);
+		lblMensagemErro.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblResultado = new JLabel();
+		lblResultado.setBounds(360, 160, 350, 35);
+		lblResultado.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblResulIp = new JLabel();
+		lblResulIp.setBounds(360, 160, 350, 35);
+		lblResulIp.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblResulClasseIp = new JLabel();
+		lblResulClasseIp.setBounds(450, 185, 350, 35);
+		lblResulClasseIp.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblResulMascDec = new JLabel();
+		lblResulMascDec.setBounds(370, 210, 350, 35);
+		lblResulMascDec.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblResulMascBin = new JLabel();
+		lblResulMascBin.setBounds(207, 235, 350, 35);
+		lblResulMascBin.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblResulIpsDisp = new JLabel();
+		lblResulIpsDisp.setBounds(440, 260, 350, 35);
+		lblResulIpsDisp.setFont(new Font("Arial", Font.BOLD, 15));
 		
 		tela.getContentPane().add(lblEndIp);
 		tela.getContentPane().add(txtPrimeiroOcteto);
@@ -150,7 +211,14 @@ public class TelaCalculo {
 		tela.getContentPane().add(lblMascaraDecimal);
 		tela.getContentPane().add(lblMascaraBinaria);
 		tela.getContentPane().add(lblIpsDisponiveis);
-		
+		tela.getContentPane().add(lblMensagemErro);
+		tela.getContentPane().add(lblResultado);
+		tela.getContentPane().add(lblResulIp);
+		tela.getContentPane().add(lblResulClasseIp);
+		tela.getContentPane().add(lblResulMascDec);
+		tela.getContentPane().add(lblResulMascBin);
+		tela.getContentPane().add(lblResulIpsDisp);
+
 		// Tornar a tela visível
 		tela.setVisible(true);
 	}
