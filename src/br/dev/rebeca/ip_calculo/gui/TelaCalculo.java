@@ -5,22 +5,23 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class TelaCalculo {
+	
+	//Componentes visuais
+	private JLabel lblEndIp;
 
-	public class TelaCalculoIp {
+	private JLabel lblIp;
+	private JLabel lblClasseIp;
+	private JLabel lblMascaraDecimal;
+	private JLabel lblIpDisponíveis;
 
-		private JLabel lblEndIp;
+	private JTextField txtPrimeiroOcteto;
+	private JTextField txtSegundoOcteto;
+	private JTextField txtTerceiroOcteto;
+	private JTextField txtQuartoOcteto;
 
-		private JLabel lblIp;
-		private JLabel lblClasseIp;
-		private JLabel lblMascaraDecimal;
-		private JLabel lblIpDisponíveis;
+	private JButton buttonCalcular;
 
-		private JTextField txtPrimeiroOcteto;
-		private JTextField txtSegundoOcteto;
-		private JTextField txtTerceiroOcteto;
-		private JTextField txtQuartoOcteto;
-
-		private JButton buttonCalcular;
+	public void criarTelaCalculoIp() {
 	}
-
+	
 }
