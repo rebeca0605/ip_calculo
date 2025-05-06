@@ -20,11 +20,11 @@ public class CalculoIp {
 		this.cidr = cidr;
 	}
 
-	public String setIp() {
+	public String ipFormato() {
 		return String.format("%d.%d.%d.%d", primeiroOcteto, segundoOcteto, terceiroOcteto, quartoOcteto);
 	}
 
-	public String getIp() {
+	public String classeIp() {
 		if (primeiroOcteto >= 0 && primeiroOcteto <= 127) {
 			return "A";
 		} else if (primeiroOcteto >= 128 && primeiroOcteto <= 191) {
@@ -36,18 +36,18 @@ public class CalculoIp {
 		}
 	}
 
-	public String getMascaraDecimal() {
+	public String calcMascaraDecimal() {
 		int mascara = 0xffffffff << (32 - cidr);
 		return String.format("%d.%d.%d.%d", (mascara >>> 24) & 0xff, (mascara >>> 16) & 0xff, (mascara >>> 8) & 0xff,
 				mascara & 0xff);
 	}
 
-	public String getMascaraBinaria() {
+	public String calcMascaraBinaria() {
 		int mascara = 0xffffffff << (32 - cidr);
 		return String.format("%32s", Integer.toBinaryString(mascara)).replace(' ', '0');
 	}
 
-	public int getNumIpsDisponiveis() {
+	public int calcNumIpsDisponiveis() {
 		if (cidr >= 32) {
 			return 1;
 		} else {
