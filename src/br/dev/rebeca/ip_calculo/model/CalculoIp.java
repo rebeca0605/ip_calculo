@@ -54,5 +54,29 @@ public class CalculoIp {
 			return (int) Math.pow(2, 32 - cidr);
 		}
 	}
+	
+	 public int calcNumRedes() {
+	        int bitsRede;
+	        
+	        switch (classeIp()) {
+	            case "A":
+	                bitsRede = cidr - 8;
+	                break;
+	            case "B":
+	                bitsRede = cidr - 16;
+	                break;
+	            case "C":
+	                bitsRede = cidr - 24;
+	                break;
+	            default:
+	                return 0;
+	        }
+
+	        if (bitsRede < 0) {
+	            return 0;
+	        }
+
+	        return (int) Math.pow(2, bitsRede);
+	    }
 
 }
