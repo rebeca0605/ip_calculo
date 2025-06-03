@@ -51,32 +51,71 @@ public class CalculoIp {
 		if (cidr >= 32) {
 			return 1;
 		} else {
-			return (int) Math.pow(2, 32 - cidr);
+			return (int) Math.pow(2, 32 - cidr) - 2;
 		}
 	}
+
+	public int calcNumRedes() {
+		int bitsRede;
+
+		switch (classeIp()) {
+		case "A":
+			bitsRede = cidr - 8;
+			break;
+		case "B":
+			bitsRede = cidr - 16;
+			break;
+		case "C":
+			bitsRede = cidr - 24;
+			break;
+		default:
+			return 0;
+		}
+
+		if (bitsRede < 0) {
+			return 0;
+		}
+
+		return (int) Math.pow(2, bitsRede);
+	}
+
+	public String primeiroIpValido() {
+		int ultimoOcteto = quartoOcteto;
+		int primeiroIpValido = ultimoOcteto + 1;
+
+		if (primeiroIpValido > 255) {
+			primeiroIpValido = 0;
+			terceiroOcteto++;
+			if (terceiroOcteto > 255) {
+				terceiroOcteto = 0;
+				segundoOcteto++;
+				if (segundoOcteto > 255) {
+					segundoOcteto = 0;
+					primeiroOcteto++;
+					if (primeiroOcteto > 255) {
+						primeiroOcteto = 0;
+					}
+				}
+			}
+		}
+
+		return String.format("%d.%d.%d.%d", primeiroOcteto, segundoOcteto, terceiroOcteto, primeiroIpValido);
+	}
 	
-	 public int calcNumRedes() {
-	        int bitsRede;
-	        
-	        switch (classeIp()) {
-	            case "A":
-	                bitsRede = cidr - 8;
-	                break;
-	            case "B":
-	                bitsRede = cidr - 16;
-	                break;
-	            case "C":
-	                bitsRede = cidr - 24;
-	                break;
-	            default:
-	                return 0;
-	        }
+	public String ultimoIpValido() {
+        String[] octetosIp = ipFormato().split("\\.");
+        int ultimoIpValido = calcularSalto() - 2;
+        return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + ultimoIpValido;
+    }
 
-	        if (bitsRede < 0) {
-	            return 0;
-	        }
+    public String ipBroadcast() {
+        String[] octetosIp = ipFormato().split("\\.");
+        int broadcastIp = calcularSalto() - 1;
+        return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + broadcastIp;
+    }
 
-	        return (int) Math.pow(2, bitsRede);
-	    }
-
+    private int calcularSalto() {
+        return (int) Math.pow(2, 32 - cidr);
+    }
 }
+
