@@ -43,8 +43,19 @@ public class CalculoIp {
 	}
 
 	public String calcMascaraBinaria() {
-		int mascara = 0xffffffff << (32 - cidr);
-		return String.format("%32s", Integer.toBinaryString(mascara)).replace(' ', '0');
+
+		int mascara = 0xFFFFFFFF << (32 - cidr);
+
+		String binMascara = String.format("%32s", Integer.toBinaryString(mascara)).replace(' ', '0');
+
+		return binMascara.substring(0, 8) + "." +
+
+				binMascara.substring(8, 16) + "." +
+
+				binMascara.substring(16, 24) + "." +
+
+				binMascara.substring(24, 32);
+
 	}
 
 	public int calcNumIpsDisponiveis() {
